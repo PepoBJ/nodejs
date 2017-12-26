@@ -4,6 +4,7 @@ head
 	meta(charset="UTF-8")
 	meta(name="viewport", content="width=device-width,initial-scale=1")
 	title= title
+	link(rel="shortcut icon", type="image/png", href="img/favicon.png")
 	each css in files.CSS
 		link(rel="stylesheet", href=`../${css}`)
 body
@@ -11,7 +12,7 @@ body
 	
 	a(href="https://pepobj.github.io", target="_blank") PepoBJ - Mi Portafolio
 	
-	p actualizando automaticamente, con npm-run-all
+	p actualizando automaticamente
 
 	each js in files.JS
 		script(src=`../${js}`)

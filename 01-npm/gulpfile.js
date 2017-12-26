@@ -25,6 +25,7 @@ const gulp   	 = require('gulp'),
 			`${dir.nm}/animate.css/animate.min.css`,
 			`${dir.nm}/font-awesome/css/font-awesome.min.css`,
 			`${dir.nm}/owl.carousel/dist/assets/owl.carousel.min.css`,
+			`${dir.nm}/responsimple/responsimple.min.css`,
 			`${dir.nm}/owl.carousel/dist/assets/owl.theme.default.min.css`,
 			`${dir.dist}/css/estilos.css`
 		],
@@ -57,6 +58,16 @@ const gulp   	 = require('gulp'),
 		},
 		es6 : {
 			presets : ['es2015']
+		},
+		imagemin : {
+			progressive : true,
+			use : [pngquant()]
+		},
+		svgmin : {
+			plugins : [
+				{convertColors : false},
+				{removeAttrs : {attrs : ['fill']}}
+			]
 		}
 	};
 
@@ -79,4 +90,37 @@ gulp.task('es6', () => {
 		.src(`${dir.src}/es6/*.js`)
 		.pipe(babel(opts.es6))
 		.pipe(gulp.dest(`${dir.dist}/js`));
+});
+
+gulp.task('img', () => {
+	gulp
+		.src(`${dir.src}/img/**/*.+(png|jpeg|jpg|gif)`)
+		.pipe(imagemin(opts.imagemin))
+		.pipe(gulp.dest(`${dir.dist}/img`));
+});
+
+gulp.task('svg', () => {
+	gulp
+		.src(`${dir.src}/img/svg/*.svg`)
+		.pipe(svgmin(opts.svgmin))
+		.pipe(gulp.dest(`${dir.dist}/img/svg`));
+});
+
+gulp.task('webp', () => {
+	gulp
+		.src(`${dir.src}/img/**/*.+(png|jpeg|jpg)`)
+		.pipe(webp())
+		.pipe(gulp.dest(`${dir.dist}/img/webp`));
+});
+
+gulp.task('fonts', () => {
+	gulp
+		.src(files.fonts)
+		.pipe(gulp.dest(`${dir.dist}/fonts`));
+});
+
+gulp.task('statics', () => {
+	gulp
+		.src(files.statics)
+		.pipe(gulp.dest(`${dir.dist}`))
 });
