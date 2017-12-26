@@ -12,8 +12,12 @@ html {
 a {
 	color: $yellow;
 	font-weight: bold;
-	
+
 	&:hover {
 		color: $blue-light;	
 	}
+}
+
+p {
+	padding: 1rem;
 }

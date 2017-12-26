@@ -5,7 +5,17 @@
   "main": "gulpfile.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "http-server"
+    "start": "http-server",
+    "pug": "gulp pug",
+    "sass": "gulp sass",
+    "es6": "gulp es6",
+    "build:dev": "npm run pug && npm run sass && npm run es6",
+    "serve": "browser-sync start --server --startPath \"dist\" --files \"dist/**/*.+(html|css|js)\"",
+    "watch:pug": "onchange \"./src/pug/**\" -- npm run pug",
+    "watch:sass": "onchange \"./src/scss/**\" -- npm run sass",
+    "watch:es6": "onchange \"./src/es6/**\" -- npm run es6",
+    "watch:dev": "parallelshell \"npm run serve\" \"npm run watch:pug\" \"npm run watch:sass\" \"npm run watch:es6\"",
+    "watch-with-run-all:dev": "run-p \"serve\" \"watch:pug\" \"watch:sass\" \"watch:es6\""
   },
   "repository": {
     "type": "git",
@@ -44,6 +54,8 @@
     "gulp-webp": "^2.3.0",
     "imagemin-pngquant": "^5.0.0",
     "onchange": "^3.0.0",
-    "parallelshell": "^2.0.0"
+    "npm-run-all": "^4.1.2",
+    "parallelshell": "^3.0.2"
   }
 }
+

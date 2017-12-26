@@ -33,7 +33,7 @@ const gulp   	 = require('gulp'),
 			`${dir.nm}/jquery/dist/jquery.min.js`,
 			`${dir.nm}/owl.carousel/dist/owl.carousel.min.js`,
 			`${dir.nm}/wowjs/dist/wow.min.js`,
-			`${dir.nm}/js/codigos.js`
+			`${dir.dist}/js/codigos.js`
 		],
 		mJS : 'codigos.min.js',
 		fonts : [
@@ -54,7 +54,11 @@ const gulp   	 = require('gulp'),
 		},
 		sass : {
 			outputStyle : 'compressed'
-		}	};
+		},
+		es6 : {
+			presets : ['es2015']
+		}
+	};
 
 gulp.task('pug', () => {
 	gulp
@@ -68,4 +72,11 @@ gulp.task('sass', () => {
 		.src(`${dir.src}/scss/*.scss`)
 		.pipe(sass(opts.sass))
 		.pipe(gulp.dest(`${dir.dist}/css`));
+});
+
+gulp.task('es6', () => {
+	gulp
+		.src(`${dir.src}/es6/*.js`)
+		.pipe(babel(opts.es6))
+		.pipe(gulp.dest(`${dir.dist}/js`));
 });
