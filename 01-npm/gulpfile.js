@@ -68,6 +68,16 @@ const gulp   	 = require('gulp'),
 				{convertColors : false},
 				{removeAttrs : {attrs : ['fill']}}
 			]
+		},
+		uncss: {
+			html: [`${dir.dist}/*.html`]
+		},
+		autoprefixer: {
+			browsers: ['last 5 versions'],
+			cascade: false
+		},
+		htmlmin: {
+			collapseWhitespace: true 
 		}
 	};
 
@@ -123,4 +133,30 @@ gulp.task('statics', () => {
 	gulp
 		.src(files.statics)
 		.pipe(gulp.dest(`${dir.dist}`))
+});
+
+gulp.task('css', () => {
+	gulp
+		.src(files.CSS)
+		.pipe( concat(files.mCSS) )
+		.pipe( uncss(opts.uncss) )
+		.pipe( autoprefixer(opts.autoprefixer) )
+		.pipe( cleanCSS() )
+		.pipe( gulp.dest(`${dir.dist}/css`) );
+});
+
+gulp.task('js', () => {
+	gulp
+		.src( files.JS )
+		.pipe( concat(files.mJS) )
+		.pipe( uglify() )
+		.pipe( gulp.dest(`${dir.dist}/js`) );
+});
+
+gulp.task('html', () => {
+	gulp
+		.src(`${dir.dist}/*.html`)
+		.pipe( useref() )
+		.pipe( htmlmin(opts.htmlmin) )
+		.pipe( gulp.dest(dir.dist) );
 });
