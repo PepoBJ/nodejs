@@ -1,0 +1,15 @@
+{
+  "name": "00-basicos",
+  "version": "1.0.0",
+  "description": "Ejemplos básicos con el micro-framework express",
+  "main": "00-hello-express.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Robert BJ HC",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.2"
+  }
+}
